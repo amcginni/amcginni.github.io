@@ -1,0 +1,95 @@
+/* $OpenBSD: openbsd.css,v 1.22 2022/01/04 16:43:45 tj Exp $ */
+
+:root {
+	--red:   #E00000;
+	--green: #008100;
+	--blue:  #0000E0;
+	--buildhead: #E0E0E0;
+}
+
+:link {
+	color: #23238E;
+}
+
+:visited {
+	color: #008088;
+}
+
+body {
+	background-color: #FFFFFF;
+	color: #111111;
+	margin: 15px auto;
+	padding: 0 10px;
+}
+
+code {
+	white-space: nowrap;
+}
+
+@media (min-width: 800px) {
+	body {
+		max-width: 60em;
+	}
+	.columns {
+	    column-count: 2;
+	}
+}
+
+tt {
+	white-space: pre;
+}
+
+input {
+	background-color: #FFFFFF;
+	color: #111111;
+	border-color: #111111;
+	border-width: 1px;
+}
+
+/* redefine colors for dark mode */
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--red:   #E05434;
+		--green: #20B700;
+		--blue:  #A7C1E5;
+		--buildhead: #474749;
+	}
+
+	:link {
+		color: #BAD7FF;
+	}
+
+	:visited {
+		color: #F6BAFF;
+	}
+
+	body {
+		background-color: #1E1F21;
+		color: #EEEFF1;
+	}
+
+	.cmdbox {
+		background: #000000;
+		color: #FFFFFF;
+	}
+
+	.zebra {
+		background: #202020;
+	}
+
+	.zebra tr:nth-child(odd) {
+		background: #2C2C2C;
+	}
+
+	#callout {
+		color: #E05434;
+	}
+
+	input {
+	    background-color: #1E1F21;
+	    color: #EEEFF1;
+	    border-color: #EEEFF1;
+	    border-width: 1px;
+}
+}
