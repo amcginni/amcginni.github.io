@@ -18,7 +18,7 @@
 body {
 	background-color: #FFFFFF;
 	color: #111111;
-	margin: 15px auto;
+	margin: 30px auto;
 	padding: 0 10px;
 }
 
@@ -26,7 +26,7 @@ code {
 	white-space: nowrap;
 }
 
-@media (min-width: 800px) {
+@media (min-width: 40em) {
 	body {
 		max-width: 60em;
 	}
