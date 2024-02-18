@@ -1,0 +1,29 @@
+/* Force all browsers to render text boxes and buttons the same way */
+input {
+    border-width: 1px;
+    padding: 2px;
+}
+
+@media (min-width: 40em) {
+	.columns {
+        column-count: 2;
+	}
+}
+
+/* Webkit's default dark color scheme does not have very readable link colors */
+@media (prefers-color-scheme: dark) {
+        body {
+            background-color: #1e1e1e;
+            color: #FFFFFF;
+        }
+        input {
+            background-color: #2d2d2d;
+            border-color: #ffffff;
+        }
+        a {
+            color: #99C1F1;
+        }
+        a:visited {
+            color: #dc8add;
+        }
+}
