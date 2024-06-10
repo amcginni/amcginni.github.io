@@ -10,7 +10,15 @@ input {
 	}
 }
 
-/* Webkit's default dark color scheme does not have very readable link colors */
+/* KHTML will render black text on a black background when a dark system theme
+ * is used.  So, we will force a background color on the light variant after
+ * all.
+ */
+body {
+	background-color: #ffffef;
+	color: #000000;
+}
+
 @media (prefers-color-scheme: dark) {
         body {
             background-color: #1e1e1e;
@@ -19,7 +27,9 @@ input {
         input {
             background-color: #2d2d2d;
             border-color: #ffffff;
+			color: #ffffff;
         }
+/* Webkit's default dark color scheme does not have very readable link colors */
         a {
             color: #99C1F1;
         }
