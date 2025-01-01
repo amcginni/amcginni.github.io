@@ -1,15 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-
-
 <head>
  <link rel="stylesheet" href="style.css">
-
-
-
-
-
-
  <meta name="color-scheme" content="dark light">
  <meta name="viewport" content="width=device-width, initial-scale=1">
  <meta charset="utf-8">
@@ -18,9 +10,7 @@
  <base target="_top">
  <meta charset="utf-8">
  <meta name="viewport" content="width=device-width, initial-scale=1">
-
  <link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
-
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
  <style>
@@ -45,18 +35,17 @@
 <script>
 
 
- if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-  var osm = L.tileLayer('https://tile.tracestrack.com/topo_en/{z}/{x}/{y}.png?key=3225210aa7a91cbd2ac1166a035e0589', {
+ var hillshade = L.tileLayer.wms('https://elevation.nationalmap.gov/arcgis/services/3DEPElevation/ImageServer/WMSServer?', {
+  maxZoom: 19,
+  layers: '3DEPElevation:Hillshade Multidirectional',
+  format: 'image/png',
+  transparent: true
+ });
+ 
+ var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
    maxZoom: 19,
    attribution: '© OpenStreetMap'
-
-  }); }
- else {
-  var osm = L.tileLayer('https://tile.tracestrack.com/topo_en/{z}/{x}/{y}.png?key=3225210aa7a91cbd2ac1166a035e0589', {
-   maxZoom: 19,
-   attribution: '© OpenStreetMap'
-  });
- }
+ });
 
  var nationalmap = L.tileLayer.wms('https://basemap.nationalmap.gov:443/arcgis/services/USGSTopo/MapServer/WmsServer?', {
   maxZoom: 16,
@@ -88,13 +77,6 @@
 
  var goes_west = L.tileLayer.wms('https://geo.weather.gc.ca/geomet?service=WMS&version=1.3.0&request=GetCapabilities&layer=GOES-West_1km_NaturalColor', {
   layers: 'GOES-West_1km_NaturalColor'
- });
-
- var hillshade = L.tileLayer.wms('https://elevation.nationalmap.gov/arcgis/services/3DEPElevation/ImageServer/WMSServer?', {
-  maxZoom: 19,
-  layers: '3DEPElevation:Hillshade Multidirectional',
-  format: 'image/png',
-  transparent: true
  });
 
  var contours = L.tileLayer.wms('https://elevation.nationalmap.gov/arcgis/services/3DEPElevation/ImageServer/WMSServer?', {
@@ -145,7 +127,7 @@
  var map = L.map('map', {
   center: [43, -76],
   zoom: 10,
-  layers: [osm]
+  layers: [hillshade,osm_hydrography,transportation,placenames]
  });
 
 
@@ -154,7 +136,8 @@
  function onMapClick(e) {
   popup
    .setLatLng(e.latlng)
-   .setContent(`<a href="https://www.google.com/maps?layer=c&cbll=${e.latlng.lat},${e.latlng.lng}">Google Street View</a>`)
+   .setContent(`<a href="https://www.google.com/maps?layer=c&cbll=${e.latlng.lat},${e.latlng.lng}">Google Street View</a><br/>
+				<a href="https://www.bing.com/maps/?cp=${e.latlng.lat}~${e.latlng.lng}&style=x">Bing Street Side</a>`)
    .openOn(map);
  }
 
@@ -162,6 +145,7 @@
 
 
  var baseMaps = {
+  "Hillshade Gray": hillshade,
   "OpenStreetMap": osm,
   "USGS National Map": nationalmap,
   "USGS Scanned Topographic Maps": topo,
@@ -169,21 +153,20 @@
   "USGS Imagery": usgs_satellite,
   "National Agrigulature Imagery Program": naip,
   "GOES East": goes_east,
-  "GOES West": goes_west,
-  "Hillshade Gray": hillshade,
+  "GOES West": goes_west
  };
 
  var overlayMaps = {
   "Locator Overlay": locator,
+  "USGS Hydrography": usgs_hydrography,
+  "OSM Hydrography": osm_hydrography,
+  "Elevation Contours": contours,
   "Transportation": transportation,
   "Place Names and Borders": placenames,
-  "OSM Hydrography": osm_hydrography,
-  "USGS Hydrography": usgs_hydrography,
   "Bus Routes": bus_routes,
   "Train Routes": train_routes,
   "Subway Routes": subway_routes,
-  "Bicycle Routes": bicycle_routes,
-  "Elevation Contours": contours
+  "Bicycle Routes": bicycle_routes
  };
 
  var layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map);
