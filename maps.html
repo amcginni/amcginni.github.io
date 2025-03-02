@@ -26,12 +26,11 @@
 </head>
 <body>
 <table style="width:100%; height:100%; overflow: hidden;">
-<tr>
+<tr style="height:4em;">
 <a href="index.html">Home</a> | <a href="about.html">About</a> | <a href="links.html">Links Page</a> | <a href="maps.html">Maps</a>
 <hr>
 </tr>
-<tr><div id="map" style="width: 100%; height: 100%; overflow: hidden;"></div></tr>
-</table>
+<tr><div id="map" style="width: 100%; height: calc(100% - 4em);">
 <script>
 
 
@@ -107,6 +106,13 @@
   maxZoom: 19
  });
 
+var floodplains = L.tileLayer.wms('https://hazards.fema.gov/arcgis/rest/services/public/NFHLWMS/MapServer/WMSServer?', {
+  maxZoom: 19,
+  layers: '12',
+  format: 'image/png',
+  transparent: true
+ });
+ 
  var bus_routes = L.tileLayer('https://tile.tracestrack.com/bus-route/{z}/{x}/{y}.png?key=3225210aa7a91cbd2ac1166a035e0589', {
   maxZoom: 19
  });
@@ -163,6 +169,7 @@
   "Elevation Contours": contours,
   "Transportation": transportation,
   "Place Names and Borders": placenames,
+  "FEMA Flood Zone Boundaries": floodplains,
   "Bus Routes": bus_routes,
   "Train Routes": train_routes,
   "Subway Routes": subway_routes,
@@ -174,5 +181,8 @@
  layer.bringToFront(transportation);
  layer.bringToFront(placenames);
 </script>
+</div>
+</tr>
+</table>
 </body>
 </html>
