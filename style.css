@@ -17,6 +17,7 @@ input {
 body {
 	background-color: #ffffef;
 	color: #000000;
+	font-family: sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
