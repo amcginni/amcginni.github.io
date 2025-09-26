@@ -1,0 +1,39 @@
+/* Force all browsers to render text boxes and buttons the same way */
+input {
+    border-width: 1px;
+    padding: 2px;
+}
+
+@media (min-width: 40em) {
+	.columns {
+        column-count: 2;
+	}
+}
+
+/* KHTML will render black text on a black background when a dark system theme
+ * is used.  So, we will force a background color on the light variant after
+ * all.
+ */
+body {
+	background-color: #ffffef;
+	color: #000000;
+	font-family: sans-serif;
+}  
+@media (prefers-color-scheme: dark) {
+        body {
+            background-color: #1e1e1e;
+            color: #FFFFFF;
+        }
+        input {
+            background-color: #2d2d2d;
+            border-color: #ffffff;
+			color: #ffffff;
+        }
+/* Webkit's default dark color scheme does not have very readable link colors */
+        a {
+            color: #99C1F1;
+        }
+        a:visited {
+            color: #dc8add;
+        }
+}
