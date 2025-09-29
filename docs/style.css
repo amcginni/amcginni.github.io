@@ -3,13 +3,11 @@ input {
     border-width: 1px;
     padding: 2px;
 }
-
 @media (min-width: 40em) {
 	.columns {
         column-count: 2;
 	}
 }
-
 /* KHTML will render black text on a black background when a dark system theme
  * is used.  So, we will force a background color on the light variant after
  * all.
