@@ -9,7 +9,9 @@ links.xhtml: header.phtml footer.phtml docs/style.css
 	ln -sf ./links.xhtml docs/links.html
 leaflet:
 	cp -r maps/leaflet docs/leaflet
-maps.xhtml: maps/maps.phtml navbar.phtml footer.phtml style.css leaflet
+maps.js: maps/maps.js
+	cp maps/maps.js docs/maps.js
+maps.xhtml: maps/maps.phtml maps.js navbar.phtml footer.phtml style.css leaflet
 	cpp -P maps/maps.phtml -o docs/maps.xhtml
 	ln -sf ./maps.xhtml docs/maps.html
 clean:
